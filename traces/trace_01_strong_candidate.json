@@ -1,0 +1,362 @@
+{
+  "session_id": "491c4a68",
+  "job_id": "SWE-001",
+  "applicant_request": "Name: Jordan Kim\nEmail: jordan.kim@email.com\nSchool: UC Berkeley, BS Computer Science, graduated 2021\nGPA: 3.7\nYears of experience: 3\nSkills: Python, SQL, REST APIs, PostgreSQL, Kubernetes\nExpected salary: $135,000\nWork authorization: US citizen (no sponsorship needed)\nCover letter: I am excited to apply for this backend engineering role.\nI have 3 years of experience building scalable Python microservices at my current company,\nwhere I led the migration of our monolith to a Kubernetes-based architecture.\nI thrive in collaborative environments and enjoy mentoring junior engineers.\nSummary: Experienced backend engineer with strong Python and cloud infrastructure skills.",
+  "agent": "CoordinatorAgent",
+  "model": "Qwen/Qwen3-8B",
+  "mcp_server": "src.tools.job_db",
+  "compliance_agent": "http://127.0.0.1:9101",
+  "recruiter_agent": "http://127.0.0.1:9102",
+  "culture_fit_agent": "http://127.0.0.1:9103",
+  "started_at": 1793258945.5010204,
+  "steps": [
+    {
+      "step": 1,
+      "type": "user_request",
+      "role": "applicant",
+      "content": "Name: Jordan Kim\nEmail: jordan.kim@email.com\nSchool: UC Berkeley, BS Computer Science, graduated 2021\nGPA: 3.7\nYears of experience: 3\nSkills: Python, SQL, REST APIs, PostgreSQL, Kubernetes\nExpected salary: $135,000\nWork authorization: US citizen (no sponsorship needed)\nCover letter: I am excited to apply for this backend engineering role.\nI have 3 years of experience building scalable Python microservices at my current company,\nwhere I led the migration of our monolith to a Kubernetes-based architecture.\nI thrive in collaborative environments and enjoy mentoring junior engineers.\nSummary: Experienced backend engineer with strong Python and cloud infrastructure skills.",
+      "t": 0.0
+    },
+    {
+      "step": 2,
+      "type": "mcp_connect",
+      "role": "mcp_connect",
+      "content": {
+        "server": "src.tools.job_db",
+        "transport": "MCP / stdio",
+        "tools_discovered": [
+          "calculate_experience_score",
+          "check_work_authorization",
+          "get_job_requirements",
+          "lookup_skill_equivalence",
+          "search_jobs"
+        ],
+        "delegate_tool": "delegate_to_specialists (OpenAI tool_use)"
+      },
+      "t": 2.631
+    },
+    {
+      "step": 3,
+      "type": "tool_call",
+      "role": "coordinator",
+      "content": {
+        "tool": "get_job_requirements",
+        "input": {
+          "job_id": "SWE-001"
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 33.898
+    },
+    {
+      "step": 4,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "get_job_requirements",
+        "result": {
+          "job_id": "SWE-001",
+          "title": "Software Engineer, Backend",
+          "company": "TechCorp (fictional)",
+          "team": "Platform",
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "preferred_skills": [
+            "Kubernetes",
+            "Go",
+            "PostgreSQL"
+          ],
+          "min_experience_years": 2,
+          "salary_range_usd": [
+            120000,
+            160000
+          ],
+          "job_offers_sponsorship": false,
+          "description": "Build and maintain scalable backend services.",
+          "source": "fallback"
+        }
+      },
+      "t": 33.898
+    },
+    {
+      "step": 5,
+      "type": "a2a_send",
+      "role": "coordinator\u2192compliance",
+      "content": {
+        "to": "http://127.0.0.1:9101",
+        "protocol": "A2A / JSONRPC",
+        "payload": {
+          "job_id": "SWE-001",
+          "years_experience": 3,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "PostgreSQL",
+            "Kubernetes"
+          ],
+          "expected_salary_usd": 135000,
+          "requires_sponsorship": false,
+          "country_code": "US",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        },
+        "stripped": [
+          "name",
+          "email",
+          "cover_letter",
+          "work_history",
+          "summary",
+          "school",
+          "gpa",
+          "graduation_year"
+        ]
+      },
+      "t": 91.043
+    },
+    {
+      "step": 6,
+      "type": "a2a_send",
+      "role": "coordinator\u2192recruiter",
+      "content": {
+        "to": "http://127.0.0.1:9102",
+        "protocol": "A2A / JSONRPC",
+        "payload": {
+          "job_id": "SWE-001",
+          "years_experience": 3,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "PostgreSQL",
+            "Kubernetes"
+          ],
+          "expected_salary_usd": 135000,
+          "requires_sponsorship": false,
+          "country_code": "US",
+          "cover_letter": "I am excited to apply for this backend engineering role. I have 3 years of experience building scalable Python microservices at my current company, where I led the migration of our monolith to a Kubernetes-based architecture. I thrive in collaborative environments and enjoy mentoring junior engineers.",
+          "work_history": "3 years building scalable Python microservices, led Kubernetes monolith migration",
+          "summary": "Experienced backend engineer with strong Python and cloud infrastructure skills.",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        },
+        "stripped": [
+          "name",
+          "email",
+          "school",
+          "gpa",
+          "graduation_year"
+        ]
+      },
+      "t": 91.044
+    },
+    {
+      "step": 7,
+      "type": "a2a_send",
+      "role": "coordinator\u2192culture",
+      "content": {
+        "to": "http://127.0.0.1:9103",
+        "protocol": "A2A / JSONRPC",
+        "payload": {
+          "job_id": "SWE-001",
+          "years_experience": 3,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "PostgreSQL",
+            "Kubernetes"
+          ],
+          "expected_salary_usd": 135000,
+          "requires_sponsorship": false,
+          "country_code": "US",
+          "cover_letter": "I am excited to apply for this backend engineering role. I have 3 years of experience building scalable Python microservices at my current company, where I led the migration of our monolith to a Kubernetes-based architecture. I thrive in collaborative environments and enjoy mentoring junior engineers.",
+          "work_history": "3 years building scalable Python microservices, led Kubernetes monolith migration",
+          "summary": "Experienced backend engineer with strong Python and cloud infrastructure skills.",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        },
+        "stripped": [
+          "name",
+          "email",
+          "school",
+          "gpa",
+          "graduation_year"
+        ]
+      },
+      "t": 91.044
+    },
+    {
+      "step": 8,
+      "type": "a2a_receive",
+      "role": "compliance\u2192coordinator",
+      "content": {
+        "eligible": true,
+        "reasons": [
+          "All hard eligibility criteria met."
+        ],
+        "flags": [],
+        "triggered_rules": [
+          "COMPLIANCE-PASS"
+        ],
+        "reviewed_by": "Compliance Agent (deterministic)"
+      },
+      "t": 156.092
+    },
+    {
+      "step": 9,
+      "type": "a2a_receive",
+      "role": "recruiter\u2192coordinator",
+      "content": {
+        "agent": "Recruiter Agent",
+        "assessment": "\n\nSKILL_MATCH: strong \u2014 The candidate has all required skills (Python, SQL, REST APIs) explicitly listed and demonstrates proficiency in Kubernetes and PostgreSQL, which are advanced tools relevant to backend engineering and cloud infrastructure. The cover letter highlights leadership in migrating a monolith to Kubernetes, indicating practical application of Python and REST API skills in scalable systems.  \nEXPERIENCE: strong \u2014 3 years of backend experience aligning with the job\u2019s needs, including hands-on work with Python microservices, REST APIs, and Kubernetes. Leadership in a migration project shows deeper technical engagement and problem-solving capabilities.  \nSCORE: 95  \nRECOMMENDATION: advance  \nNOTES: The candidate\u2019s experience with Kubernetes and PostgreSQL strongly supports their backend engineering qualifications, even though \"machine learning\" is not explicitly mentioned. Their project leadership and focus on scalable systems suggest advanced capabilities beyond basic requirements. The growth trajectory is implied through their experience with modern tools and collaborative mentoring, though no explicit mention of ongoing learning is provided.",
+        "payload_received": {
+          "job_id": "SWE-001",
+          "years_experience": 3,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "PostgreSQL",
+            "Kubernetes"
+          ],
+          "expected_salary_usd": 135000,
+          "requires_sponsorship": false,
+          "country_code": "US",
+          "cover_letter": "I am excited to apply for this backend engineering role. I have 3 years of experience building scalable Python microservices at my current company, where I led the migration of our monolith to a Kubernetes-based architecture. I thrive in collaborative environments and enjoy mentoring junior engineers.",
+          "work_history": "3 years building scalable Python microservices, led Kubernetes monolith migration",
+          "summary": "Experienced backend engineer with strong Python and cloud infrastructure skills.",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        }
+      },
+      "t": 156.092
+    },
+    {
+      "step": 10,
+      "type": "a2a_receive",
+      "role": "culture\u2192coordinator",
+      "content": {
+        "agent": "Culture Fit Agent",
+        "assessment": "\n\nCOMMUNICATION: Strong \u2014 The cover letter and summary are concise, focused, and clearly articulate technical experience and personal attributes relevant to the role.  \nMOTIVATION: Well-aligned \u2014 The candidate expresses enthusiasm for backend engineering and highlights collaborative strengths, matching the team's needs for scalable systems and mentorship.  \nCOLLABORATION: Adequate \u2014 Mentions of mentoring and working in collaborative environments suggest teamwork potential, though specific examples of collaboration are not detailed.  \nRECOMMENDATION: Advance  \nNOTES: The candidate\u2019s technical skills align well with the role, and their stated motivation reflects a fit for team-oriented backend work. Collaboration details could be more specific, but the signals are present.",
+        "payload_received": {
+          "job_id": "SWE-001",
+          "years_experience": 3,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "PostgreSQL",
+            "Kubernetes"
+          ],
+          "expected_salary_usd": 135000,
+          "requires_sponsorship": false,
+          "country_code": "US",
+          "cover_letter": "I am excited to apply for this backend engineering role. I have 3 years of experience building scalable Python microservices at my current company, where I led the migration of our monolith to a Kubernetes-based architecture. I thrive in collaborative environments and enjoy mentoring junior engineers.",
+          "work_history": "3 years building scalable Python microservices, led Kubernetes monolith migration",
+          "summary": "Experienced backend engineer with strong Python and cloud infrastructure skills.",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        }
+      },
+      "t": 156.092
+    },
+    {
+      "step": 11,
+      "type": "tool_call",
+      "role": "coordinator",
+      "content": {
+        "tool": "calculate_experience_score",
+        "input": {
+          "years_required": 2,
+          "years_actual": 3
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 159.484
+    },
+    {
+      "step": 12,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "calculate_experience_score",
+        "result": {
+          "years_required": 2,
+          "years_actual": 3.0,
+          "ratio": 1.5,
+          "score": 100,
+          "meets_minimum": true
+        }
+      },
+      "t": 159.484
+    },
+    {
+      "step": 13,
+      "type": "thought",
+      "role": "coordinator",
+      "content": "The candidate meets all eligibility criteria and has a strong alignment with the job requirements. Their 3 years of experience exceed the minimum requirement of 2 years, and they possess all required skills (Python, SQL, REST APIs) with additional expertise in PostgreSQL and Kubernetes. The expected salary of $135,000 is within the stated range of $120,000\u2013$160,000. The recruiter assessment highlights strong technical qualifications and leadership experience, while the culture fit evaluation indicates enthusiasm for collaboration and mentorship. No work authorization issues are present, and the compliance check confirms all legal requirements are satisfied. \n\n**Recommendation**: Advance to the next stage of the hiring process. The candidate demonstrates both the technical capability and cultural fit necessary for the role.",
+      "t": 177.877
+    },
+    {
+      "step": 14,
+      "type": "final_response",
+      "role": "coordinator",
+      "content": "The candidate meets all eligibility criteria and has a strong alignment with the job requirements. Their 3 years of experience exceed the minimum requirement of 2 years, and they possess all required skills (Python, SQL, REST APIs) with additional expertise in PostgreSQL and Kubernetes. The expected salary of $135,000 is within the stated range of $120,000\u2013$160,000. The recruiter assessment highlights strong technical qualifications and leadership experience, while the culture fit evaluation indicates enthusiasm for collaboration and mentorship. No work authorization issues are present, and the compliance check confirms all legal requirements are satisfied. \n\n**Recommendation**: Advance to the next stage of the hiring process. The candidate demonstrates both the technical capability and cultural fit necessary for the role.",
+      "t": 177.877
+    }
+  ],
+  "final_response": "The candidate meets all eligibility criteria and has a strong alignment with the job requirements. Their 3 years of experience exceed the minimum requirement of 2 years, and they possess all required skills (Python, SQL, REST APIs) with additional expertise in PostgreSQL and Kubernetes. The expected salary of $135,000 is within the stated range of $120,000\u2013$160,000. The recruiter assessment highlights strong technical qualifications and leadership experience, while the culture fit evaluation indicates enthusiasm for collaboration and mentorship. No work authorization issues are present, and the compliance check confirms all legal requirements are satisfied. \n\n**Recommendation**: Advance to the next stage of the hiring process. The candidate demonstrates both the technical capability and cultural fit necessary for the role.",
+  "scenario": {
+    "name": "trace_01_strong_candidate",
+    "description": "S001 \u2014 Strong SWE candidate, all requirements met, US citizen."
+  }
+}

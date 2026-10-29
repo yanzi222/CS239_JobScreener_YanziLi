@@ -1,0 +1,17 @@
+# Policies — Job Application Screener
+
+P1. Before sending any application to a specialist agent, the Coordinator must remove direct personal identifiers and unrelated background fields, including name, email, phone, address, school, university, graduation year, GPA, gender, ethnicity, nationality name, photo URL, and LinkedIn URL. These fields must not be included in specialist A2A payloads. Free-text application fields also require careful review for embedded identifiers; top-level field filtering alone does not guarantee their absence.
+
+P2. The Compliance Agent must check each incoming A2A payload for prohibited personal-information fields before evaluating the applicant. If such fields are present, the payload must be rejected with a policy error and no eligibility assessment may proceed. In Phase 1, the implementation raises an exception on such input; a standardized COMPLIANCE-ERROR response is an intended improvement.
+
+P3. If an applicant explicitly requires visa sponsorship and a job explicitly does not offer it (COMPLIANCE-C1), the Coordinator must not recommend advancement for that posting. When minimum experience is below a stated threshold (COMPLIANCE-C2), the Coordinator must disclose that unmet requirement; the intended review workflow may recommend HOLD for human consideration but must not label the applicant fully eligible. A missing exact skill keyword (COMPLIANCE-C4) is an advisory gap that may be examined using evidence of equivalent skills; specialist opinions must not silently change the Compliance result.
+
+P4. Only the Coordinator is authorized to initiate routine screening requests to the Compliance, Recruiter, and Culture Fit services. Phase 1 binds them to localhost ports 9101, 9102, and 9103, but localhost alone does not authenticate callers. Future enforcement must reject direct unauthorized calls rather than relying solely on network placement.
+
+P5. Before issuing a completed screening recommendation, the Coordinator must retrieve the selected job requirements through MCP and obtain responses from the three specialist agents via A2A. If any required delegation or response fails, the system should report the incomplete assessment rather than present an invented specialist verdict. Job requirement fields passed to specialists must be preserved from the MCP result and not rewritten by the LLM.
+
+P6. The Recruiter Agent must assess technical skills and experience based only on the sanitized application it receives. It may infer equivalent capabilities when supported by work history or projects, such as Bayesian modeling and PyTorch as evidence relevant to machine learning, but must distinguish inference from verified experience and must not reference the applicant's removed identifying information.
+
+P7. The Culture Fit Agent must assess only job-related evidence of written communication, motivation, and collaboration from the sanitized materials. It must not treat missing collaboration evidence as proof of poor ability, make work-authorization decisions, or use GPA, school identity, or demographic attributes to judge an applicant.
+
+P8. The Coordinator must clearly distinguish specialist findings from its final recommendation, preserve material disagreements, and report unresolved eligibility gaps. The internal review demo may name the specialist agents and summarize their findings, but should avoid exposing unnecessary personal information or treating speculative claims as established facts.

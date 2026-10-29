@@ -1,0 +1,470 @@
+{
+  "session_id": "cae1ba00",
+  "job_id": "SWE-001",
+  "applicant_request": "Name: Priya Sharma\nEmail: priya.sharma@email.com\nSchool: IIT Bombay, BTech Computer Science, graduated 2022\nGPA: 3.9\nYears of experience: 2.5\nSkills: Python, SQL, REST APIs, Go, PostgreSQL\nExpected salary: $128,000\nWork authorization: Indian citizen, requires H-1B sponsorship\nCover letter: I am applying for the backend engineer position.\nDuring my 2.5 years at my current employer I have shipped multiple high-availability services\nin Python and Go, handling millions of requests per day. I am detail-oriented and\ncommunicate clearly with both engineering and product teams.\nSummary: Strong technical background with experience in Python and distributed systems.",
+  "agent": "CoordinatorAgent",
+  "model": "Qwen/Qwen3-8B",
+  "mcp_server": "src.tools.job_db",
+  "compliance_agent": "http://127.0.0.1:9101",
+  "recruiter_agent": "http://127.0.0.1:9102",
+  "culture_fit_agent": "http://127.0.0.1:9103",
+  "started_at": 1793259123.630226,
+  "steps": [
+    {
+      "step": 1,
+      "type": "user_request",
+      "role": "applicant",
+      "content": "Name: Priya Sharma\nEmail: priya.sharma@email.com\nSchool: IIT Bombay, BTech Computer Science, graduated 2022\nGPA: 3.9\nYears of experience: 2.5\nSkills: Python, SQL, REST APIs, Go, PostgreSQL\nExpected salary: $128,000\nWork authorization: Indian citizen, requires H-1B sponsorship\nCover letter: I am applying for the backend engineer position.\nDuring my 2.5 years at my current employer I have shipped multiple high-availability services\nin Python and Go, handling millions of requests per day. I am detail-oriented and\ncommunicate clearly with both engineering and product teams.\nSummary: Strong technical background with experience in Python and distributed systems.",
+      "t": 0.0
+    },
+    {
+      "step": 2,
+      "type": "mcp_connect",
+      "role": "mcp_connect",
+      "content": {
+        "server": "src.tools.job_db",
+        "transport": "MCP / stdio",
+        "tools_discovered": [
+          "calculate_experience_score",
+          "check_work_authorization",
+          "get_job_requirements",
+          "lookup_skill_equivalence",
+          "search_jobs"
+        ],
+        "delegate_tool": "delegate_to_specialists (OpenAI tool_use)"
+      },
+      "t": 2.505
+    },
+    {
+      "step": 3,
+      "type": "tool_call",
+      "role": "coordinator",
+      "content": {
+        "tool": "get_job_requirements",
+        "input": {
+          "job_id": "SWE-001"
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 113.314
+    },
+    {
+      "step": 4,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "get_job_requirements",
+        "result": {
+          "job_id": "SWE-001",
+          "title": "Software Engineer, Backend",
+          "company": "TechCorp (fictional)",
+          "team": "Platform",
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "preferred_skills": [
+            "Kubernetes",
+            "Go",
+            "PostgreSQL"
+          ],
+          "min_experience_years": 2,
+          "salary_range_usd": [
+            120000,
+            160000
+          ],
+          "job_offers_sponsorship": false,
+          "description": "Build and maintain scalable backend services.",
+          "source": "fallback"
+        }
+      },
+      "t": 113.314
+    },
+    {
+      "step": 5,
+      "type": "a2a_send",
+      "role": "coordinator\u2192compliance",
+      "content": {
+        "to": "http://127.0.0.1:9101",
+        "protocol": "A2A / JSONRPC",
+        "payload": {
+          "job_id": "SWE-001",
+          "years_experience": 2.5,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "Go",
+            "PostgreSQL"
+          ],
+          "expected_salary_usd": 128000,
+          "requires_sponsorship": true,
+          "country_code": "IN",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        },
+        "stripped": [
+          "name",
+          "email",
+          "cover_letter",
+          "work_history",
+          "summary",
+          "school",
+          "gpa",
+          "graduation_year"
+        ]
+      },
+      "t": 179.45
+    },
+    {
+      "step": 6,
+      "type": "a2a_send",
+      "role": "coordinator\u2192recruiter",
+      "content": {
+        "to": "http://127.0.0.1:9102",
+        "protocol": "A2A / JSONRPC",
+        "payload": {
+          "job_id": "SWE-001",
+          "years_experience": 2.5,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "Go",
+            "PostgreSQL"
+          ],
+          "expected_salary_usd": 128000,
+          "requires_sponsorship": true,
+          "country_code": "IN",
+          "cover_letter": "I am applying for the backend engineer position. During my 2.5 years at my current employer I have shipped multiple high-availability services in Python and Go, handling millions of requests per day. I am detail-oriented and communicate clearly with both engineering and product teams.",
+          "work_history": "During my 2.5 years at my current employer I have shipped multiple high-availability services in Python and Go, handling millions of requests per day.",
+          "summary": "Strong technical background with experience in Python and distributed systems.",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        },
+        "stripped": [
+          "name",
+          "email",
+          "school",
+          "gpa",
+          "graduation_year"
+        ]
+      },
+      "t": 179.45
+    },
+    {
+      "step": 7,
+      "type": "a2a_send",
+      "role": "coordinator\u2192culture",
+      "content": {
+        "to": "http://127.0.0.1:9103",
+        "protocol": "A2A / JSONRPC",
+        "payload": {
+          "job_id": "SWE-001",
+          "years_experience": 2.5,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "Go",
+            "PostgreSQL"
+          ],
+          "expected_salary_usd": 128000,
+          "requires_sponsorship": true,
+          "country_code": "IN",
+          "cover_letter": "I am applying for the backend engineer position. During my 2.5 years at my current employer I have shipped multiple high-availability services in Python and Go, handling millions of requests per day. I am detail-oriented and communicate clearly with both engineering and product teams.",
+          "work_history": "During my 2.5 years at my current employer I have shipped multiple high-availability services in Python and Go, handling millions of requests per day.",
+          "summary": "Strong technical background with experience in Python and distributed systems.",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        },
+        "stripped": [
+          "name",
+          "email",
+          "school",
+          "gpa",
+          "graduation_year"
+        ]
+      },
+      "t": 179.45
+    },
+    {
+      "step": 8,
+      "type": "a2a_receive",
+      "role": "compliance\u2192coordinator",
+      "content": {
+        "eligible": false,
+        "reasons": [],
+        "flags": [
+          "Candidate requires sponsorship; position does not offer it."
+        ],
+        "triggered_rules": [
+          "COMPLIANCE-C1"
+        ],
+        "reviewed_by": "Compliance Agent (deterministic)"
+      },
+      "t": 252.214
+    },
+    {
+      "step": 9,
+      "type": "a2a_receive",
+      "role": "recruiter\u2192coordinator",
+      "content": {
+        "agent": "Recruiter Agent",
+        "assessment": "\n\nSKILL_MATCH: Strong \u2014 The candidate has all required skills (Python, SQL, REST APIs) and additional relevant ones (Go, PostgreSQL). PostgreSQL implies SQL proficiency, while Python and Go experience suggest strong backend development capabilities. Their mention of shipping high-availability services demonstrates practical application of these skills in production environments.  \nEXPERIENCE: Strong \u2014 2.5 years of backend development experience shipping scalable systems handling millions of requests. This shows hands-on expertise with distributed systems and high-performance architecture, which is critical for backend roles.  \nSCORE: 92  \nRECOMMENDATION: advance  \nNOTES: The candidate's experience with Python and Go in production systems (high availability, millions of requests) strongly implies backend engineering capability. While the Compliance Agent may have flagged missing \"machine learning\" in another context, this job does not require it. Their communication skills and detail orientation are also relevant for collaboration in engineering teams.",
+        "payload_received": {
+          "job_id": "SWE-001",
+          "years_experience": 2.5,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "Go",
+            "PostgreSQL"
+          ],
+          "expected_salary_usd": 128000,
+          "requires_sponsorship": true,
+          "country_code": "IN",
+          "cover_letter": "I am applying for the backend engineer position. During my 2.5 years at my current employer I have shipped multiple high-availability services in Python and Go, handling millions of requests per day. I am detail-oriented and communicate clearly with both engineering and product teams.",
+          "work_history": "During my 2.5 years at my current employer I have shipped multiple high-availability services in Python and Go, handling millions of requests per day.",
+          "summary": "Strong technical background with experience in Python and distributed systems.",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        }
+      },
+      "t": 252.214
+    },
+    {
+      "step": 10,
+      "type": "a2a_receive",
+      "role": "culture\u2192coordinator",
+      "content": {
+        "agent": "Culture Fit Agent",
+        "assessment": "\n\nCOMMUNICATION: strong \u2014 The candidate clearly articulates their experience and skills with specific examples (e.g., \"shipped multiple high-availability services,\" \"handling millions of requests per day\") and explicitly mentions their communication strengths with engineering and product teams.  \nMOTIVATION: well-aligned \u2014 Their focus on backend engineering (shipping services, detail-oriented approach) and alignment with required skills (Python, SQL, REST APIs) demonstrate a clear match to the role. The salary expectation falls within the stated range.  \nCOLLABORATION: strong \u2014 The candidate emphasizes communication with cross-functional teams (engineering and product) and teamwork in delivering services, indicating a collaborative mindset.  \nRECOMMENDATION: advance  \nNOTES: The candidate\u2019s communication is precise and professional, their motivation aligns with the technical and collaborative demands of the role, and their experience suggests they thrive in team-oriented environments.",
+        "payload_received": {
+          "job_id": "SWE-001",
+          "years_experience": 2.5,
+          "candidate_skills": [
+            "Python",
+            "SQL",
+            "REST APIs",
+            "Go",
+            "PostgreSQL"
+          ],
+          "expected_salary_usd": 128000,
+          "requires_sponsorship": true,
+          "country_code": "IN",
+          "cover_letter": "I am applying for the backend engineer position. During my 2.5 years at my current employer I have shipped multiple high-availability services in Python and Go, handling millions of requests per day. I am detail-oriented and communicate clearly with both engineering and product teams.",
+          "work_history": "During my 2.5 years at my current employer I have shipped multiple high-availability services in Python and Go, handling millions of requests per day.",
+          "summary": "Strong technical background with experience in Python and distributed systems.",
+          "min_experience_years": 2,
+          "job_offers_sponsorship": false,
+          "required_skills": [
+            "Python",
+            "SQL",
+            "REST APIs"
+          ],
+          "salary_range_usd": [
+            120000,
+            160000
+          ]
+        }
+      },
+      "t": 252.214
+    },
+    {
+      "step": 11,
+      "type": "tool_call",
+      "role": "coordinator",
+      "content": {
+        "tool": "check_work_authorization",
+        "input": {
+          "country_code": "IN"
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 275.881
+    },
+    {
+      "step": 12,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "check_work_authorization",
+        "result": {
+          "country_code": "IN",
+          "requires_sponsorship": true,
+          "note": "Based on standard US work authorization rules."
+        }
+      },
+      "t": 275.881
+    },
+    {
+      "step": 13,
+      "type": "tool_call",
+      "role": "coordinator",
+      "content": {
+        "tool": "calculate_experience_score",
+        "input": {
+          "years_required": 2,
+          "years_actual": 2.5
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 279.841
+    },
+    {
+      "step": 14,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "calculate_experience_score",
+        "result": {
+          "years_required": 2,
+          "years_actual": 2.5,
+          "ratio": 1.25,
+          "score": 100,
+          "meets_minimum": true
+        }
+      },
+      "t": 279.841
+    },
+    {
+      "step": 15,
+      "type": "tool_call",
+      "role": "coordinator",
+      "content": {
+        "tool": "lookup_skill_equivalence",
+        "input": {
+          "skill": "REST APIs"
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 284.091
+    },
+    {
+      "step": 16,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "lookup_skill_equivalence",
+        "result": {
+          "input": "REST APIs",
+          "canonical": "REST APIs",
+          "alias_matched": false
+        }
+      },
+      "t": 284.091
+    },
+    {
+      "step": 17,
+      "type": "tool_call",
+      "role": "coordinator",
+      "content": {
+        "tool": "lookup_skill_equivalence",
+        "input": {
+          "skill": "Go"
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 289.972
+    },
+    {
+      "step": 18,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "lookup_skill_equivalence",
+        "result": {
+          "input": "Go",
+          "canonical": "Go",
+          "alias_matched": false
+        }
+      },
+      "t": 289.972
+    },
+    {
+      "step": 19,
+      "type": "tool_call",
+      "role": "coordinator",
+      "content": {
+        "tool": "lookup_skill_equivalence",
+        "input": {
+          "skill": "PostgreSQL"
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 292.314
+    },
+    {
+      "step": 20,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "lookup_skill_equivalence",
+        "result": {
+          "input": "PostgreSQL",
+          "canonical": "PostgreSQL",
+          "alias_matched": false
+        }
+      },
+      "t": 292.314
+    },
+    {
+      "step": 21,
+      "type": "thought",
+      "role": "coordinator",
+      "content": "The candidate is a strong technical fit with 2.5 years of backend development experience, matching all required skills (Python, SQL, REST APIs) and exceeding the minimum experience requirement of 2 years. Their work history indicates expertise in shipping high-availability services, which is critical for backend roles. The cover letter and summary demonstrate clear communication skills, technical competence, and a collaborative mindset.\n\nHowever, the Compliance Agent's assessment reveals that the candidate requires H-1B sponsorship, but the job posting explicitly states that it does **not** offer sponsorship (job_offers_sponsorship: false). Additionally, the country code \"IN\" requires visa sponsorship according to standard US work authorization rules. This creates a conflict that disqualifies the candidate from consideration for this position.\n\n**Final recommendation:** \u274c Reject due to sponsorship requirements conflict. The candidate's eligibility is constrained by the job's lack of sponsorship offerings and India's regulatory requirements for US work authorization.",
+      "t": 341.735
+    },
+    {
+      "step": 22,
+      "type": "final_response",
+      "role": "coordinator",
+      "content": "The candidate is a strong technical fit with 2.5 years of backend development experience, matching all required skills (Python, SQL, REST APIs) and exceeding the minimum experience requirement of 2 years. Their work history indicates expertise in shipping high-availability services, which is critical for backend roles. The cover letter and summary demonstrate clear communication skills, technical competence, and a collaborative mindset.\n\nHowever, the Compliance Agent's assessment reveals that the candidate requires H-1B sponsorship, but the job posting explicitly states that it does **not** offer sponsorship (job_offers_sponsorship: false). Additionally, the country code \"IN\" requires visa sponsorship according to standard US work authorization rules. This creates a conflict that disqualifies the candidate from consideration for this position.\n\n**Final recommendation:** \u274c Reject due to sponsorship requirements conflict. The candidate's eligibility is constrained by the job's lack of sponsorship offerings and India's regulatory requirements for US work authorization.",
+      "t": 341.736
+    }
+  ],
+  "final_response": "The candidate is a strong technical fit with 2.5 years of backend development experience, matching all required skills (Python, SQL, REST APIs) and exceeding the minimum experience requirement of 2 years. Their work history indicates expertise in shipping high-availability services, which is critical for backend roles. The cover letter and summary demonstrate clear communication skills, technical competence, and a collaborative mindset.\n\nHowever, the Compliance Agent's assessment reveals that the candidate requires H-1B sponsorship, but the job posting explicitly states that it does **not** offer sponsorship (job_offers_sponsorship: false). Additionally, the country code \"IN\" requires visa sponsorship according to standard US work authorization rules. This creates a conflict that disqualifies the candidate from consideration for this position.\n\n**Final recommendation:** \u274c Reject due to sponsorship requirements conflict. The candidate's eligibility is constrained by the job's lack of sponsorship offerings and India's regulatory requirements for US work authorization.",
+  "scenario": {
+    "name": "trace_02_sponsorship_required",
+    "description": "S002 \u2014 Qualified candidate but requires visa sponsorship for a role that doesn't offer it."
+  }
+}
